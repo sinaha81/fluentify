@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
@@ -7,6 +8,9 @@
 
     <meta name="theme-color" content="#1e293b">
     <meta name="description" content="Translate text, images, and PDF documents with a modern, fast, and user-friendly interface powered by Google AI.">
+
+    <!-- ===== PWA manifest link (ADDED) ===== -->
+    <link rel="manifest" href="manifest.json">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -1456,7 +1460,7 @@ ${JSON.stringify(itemsToTranslate)}`.trim();
                         const originalText = (subtitleData.lines || subtitleData.events.lines)[index].text;
                         const targetCell = row.cells[3];
                         btn.disabled = true;
-                        btn.innerHTML = `<svg class="spinner w-3 h-3 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 R>0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>`;
+                        btn.innerHTML = `<svg class="spinner w-3 h-3 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>`;
                         try {
                             const apiKey = dom.apiKeyInput.value.trim();
                             if (!apiKey) throw new Error("API Key is required.");
@@ -1601,6 +1605,21 @@ ${JSON.stringify(itemsToTranslate)}`.trim();
             }
             
             document.addEventListener('DOMContentLoaded', initialize);
+
+            // ===== PWA Service Worker Registration (ADDED) =====
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                  .then(registration => {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                  })
+                  .catch(err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                  });
+              });
+            }
+            // ======================================================
+
         })();
         </script>
 

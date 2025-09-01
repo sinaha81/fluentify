@@ -1,0 +1,23 @@
+{
+  "name": "Fluentify - Modern AI Translator",
+  "short_name": "Fluentify",
+  "description": "Translate text, images, and PDF documents with a modern, fast, and user-friendly interface powered by Google AI.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#1e293b",
+  "theme_color": "#1e293b",
+  "icons": [
+    {
+      "src": "sina.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "sina.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
