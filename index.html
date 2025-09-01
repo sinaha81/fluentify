@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
@@ -15,7 +16,13 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <!-- ===== MODERN FONT ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+
     <style type="text/css">
+        /* Original Untouched Styles */
         body, .bg-card, .bg-input { transition: background-color 0.3s ease, color 0.3s ease; }
         textarea::-webkit-scrollbar, .scroll-container::-webkit-scrollbar { width: 8px; }
         textarea::-webkit-scrollbar-track, .scroll-container::-webkit-scrollbar-track { background: transparent; }
@@ -45,12 +52,9 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
         #enhancements-toolbar { transition: opacity 0.3s ease, transform 0.3s ease; }
-        
-        /* New Styles */
         .progress-bar { height: 8px; background-color: #e5e7eb; border-radius: 9999px; overflow: hidden; }
         .dark .progress-bar { background-color: #374151; }
         .progress-bar-inner { height: 100%; background-color: #0ea5e9; border-radius: 9999px; transition: width 0.3s ease; }
-
         #log-viewer { transition: max-height 0.5s ease-in-out; }
         #log-output { white-space: pre-wrap; word-break: break-all; }
         .log-entry { display: flex; gap: 0.75rem; }
@@ -60,7 +64,6 @@
         .dark .log-message.error { color: #f87171; }
         .log-message.success { color: #22c55e; }
         .dark .log-message.success { color: #4ade80; }
-
         #subtitle-editor-section table { width: 100%; border-collapse: collapse; }
         #subtitle-editor-section th, #subtitle-editor-section td { padding: 8px 12px; border: 1px solid #d1d5db; text-align: left; vertical-align: middle;}
         .dark #subtitle-editor-section th, .dark #subtitle-editor-section td { border-color: #4b5563; }
@@ -69,7 +72,6 @@
         #subtitle-editor-section td:nth-child(3), #subtitle-editor-section td:nth-child(4) { font-size: 0.9rem; }
         #subtitle-editor-section .translated-text { background-color: #f0f9ff; }
         .dark #subtitle-editor-section .translated-text { background-color: #1e293b; }
-
         #subtitle-editor-section td[contenteditable="true"] {
             outline: 2px solid transparent;
             transition: background-color 0.2s ease, outline-color 0.2s ease;
@@ -89,6 +91,118 @@
         }
         .dark #subtitle-editor-section mark {
             background-color: #facc15;
+        }
+    </style>
+
+    <!-- ===== MODERN UI & DYNAMIC BACKGROUND STYLES (MODIFIED) ===== -->
+    <style>
+        :root {
+            --light-bg-color: #f0f2f5;
+            --dark-bg-color: #0d1117;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-size: 400% 400%;
+            animation: gradient-animation 20s ease infinite;
+            transition: background 0.5s ease;
+            overflow: hidden; /* Important for particle effect */
+        }
+        main { position: relative; z-index: 2; }
+
+        html:not(.dark) body {
+            background-image: linear-gradient(-45deg, #e0c3fc, #8ec5fc, #a1c4fd, #c2e9fb);
+        }
+        html.dark body {
+            background-image: linear-gradient(-45deg, #0d1117, #1c1f46, #4d1d4d, #1a2a45);
+        }
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .glass-ui, 
+        #app-container, #log-viewer, #settings-panel, #enhancements-toolbar, #pdf-viewer-section, 
+        #subtitle-editor-section, #progress-container, #dropzone-container, #youtube-input-section,
+        select, input[type="text"], input[type="password"], input[type="number"], input[type="url"], textarea {
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        html:not(.dark) .glass-ui, html:not(.dark) #app-container, html:not(.dark) #log-viewer {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        html.dark .glass-ui, html.dark #app-container, html.dark #log-viewer {
+            background-color: rgba(17, 25, 40, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        body.bg-slate-100, body.dark\:bg-slate-900 { background: none; }
+        #app-container.bg-white, #app-container.dark\:bg-slate-800 { background: none; }
+        #log-viewer.bg-white, #log-viewer.dark\:bg-slate-800 { background: none; }
+        #app-container { border-radius: 1.5rem; }
+        h1.dark\:text-white { background: -webkit-linear-gradient(45deg, #a1c4fd, #c2e9fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        html.dark h1.dark\:text-white { background: -webkit-linear-gradient(45deg, #e0c3fc, #8ec5fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .dark\:text-slate-300 { color: #d1d5db; }
+        .text-slate-800 { color: #1f2937; }
+        
+        select, input, textarea { border-radius: 0.75rem !important; padding: 0.85rem 1rem !important; box-shadow: none !important; border: 1px solid transparent; }
+        html:not(.dark) select, html:not(.dark) input, html:not(.dark) textarea { background-color: rgba(255, 255, 255, 0.25); border-color: rgba(209, 213, 219, 0.3); color: #111827; }
+        html.dark select, html.dark input, html.dark textarea { background-color: rgba(30, 41, 59, 0.4); border-color: rgba(71, 85, 105, 0.4); color: #e5e7eb; }
+        ::placeholder { color: rgba(107, 114, 128, 0.7) !important; }
+        html.dark ::placeholder { color: rgba(156, 163, 175, 0.5) !important; }
+        select:focus, input:focus, textarea:focus { outline: none; border-color: #38bdf8 !important; box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3) !important; }
+        select { -webkit-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.7rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
+        html.dark select { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); }
+        button { border-radius: 0.75rem !important; transition: all 0.2s ease-in-out !important; border: 1px solid transparent; transform: translateY(0); }
+        button:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        button:active { transform: translateY(0); }
+        #translate-btn { background: linear-gradient(45deg, #0ea5e9, #2563eb) !important; color: white !important; font-weight: bold; border: none; }
+        #translate-btn:hover { box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4); }
+        #translate-btn:disabled { background: #6b7280 !important; cursor: not-allowed; transform: none; box-shadow: none; }
+        #settings-toggle-btn, .enhancement-btn, #choose-file-btn, #select-all-pages-btn, #deselect-all-pages-btn, #fetch-youtube-subs-btn, #translate-all-subs-btn, #replace-all-btn, #break-lines-apply-btn, #optimize-prompt-btn, #clear-cache-btn { backdrop-filter: blur(10px); }
+        html:not(.dark) #settings-toggle-btn, html:not(.dark) .secondary-btn { background-color: rgba(255, 255, 255, 0.3) !important; border-color: rgba(209, 213, 219, 0.4); color: #374151; }
+        html:not(.dark) #settings-toggle-btn:hover, html:not(.dark) .secondary-btn:hover { background-color: rgba(255, 255, 255, 0.5) !important; }
+        html.dark #settings-toggle-btn, html.dark .secondary-btn { background-color: rgba(55, 65, 81, 0.4) !important; border-color: rgba(107, 114, 128, 0.4); color: #e5e7eb; }
+        html.dark #settings-toggle-btn:hover, html.dark .secondary-btn:hover { background-color: rgba(55, 65, 81, 0.6) !important; }
+        #swap-btn, #theme-toggle, #copy-btn, #export-text-btn, #remove-file-btn { border: none !important; background-color: transparent !important; }
+        html:not(.dark) #swap-btn, html:not(.dark) #theme-toggle { background-color: rgba(229, 231, 235, 0.6) !important; }
+        html:not(.dark) #swap-btn:hover, html:not(.dark) #theme-toggle:hover { background-color: rgba(209, 213, 219, 0.8) !important; }
+        html.dark #swap-btn, html.dark #theme-toggle { background-color: rgba(55, 65, 81, 0.5) !important; }
+        html.dark #swap-btn:hover, html.dark #theme-toggle:hover { background-color: rgba(75, 85, 99, 0.7) !important; }
+        div.bg-slate-200.dark\:bg-slate-700 { background-color: transparent !important; border: 1px solid; border-radius: 0.75rem; padding: 0.2rem !important; }
+        html:not(.dark) div.bg-slate-200 { border-color: rgba(209, 213, 219, 0.3); }
+        html.dark div.dark\:bg-slate-700 { border-color: rgba(71, 85, 105, 0.4); }
+        label.has-\[:checked\]\:bg-sky-500 { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        input[name="input_type"]:checked + * { color: white !important; }
+        .has-\[:checked\]\:bg-sky-500:has(> input:checked) { background: linear-gradient(45deg, #0ea5e9, #2563eb) !important; }
+
+        /* ===== NEW: FIRE PARTICLES BACKGROUND ===== */
+        .particle {
+            position: fixed;
+            top: -20px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffd700, #ff8c00, #e85d04);
+            box-shadow: 0 0 10px 4px #ff8c00, 0 0 15px 6px #e85d04;
+            animation: snowfall linear infinite;
+            z-index: 1;
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(105vh) translateX(calc(var(--sway) * 80px));
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -177,8 +291,8 @@
                     <div class="flex flex-wrap gap-4 justify-between items-center pb-3 border-b border-slate-300 dark:border-slate-700">
                         <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200">Select Pages to Translate</h3>
                         <div class="flex items-center gap-2">
-                             <button type="button" id="select-all-pages-btn" class="px-3 py-1 text-sm font-medium rounded-md bg-white dark:bg-slate-600 border border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">Select All</button>
-                             <button type="button" id="deselect-all-pages-btn" class="px-3 py-1 text-sm font-medium rounded-md bg-white dark:bg-slate-600 border border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">Deselect All</button>
+                             <button type="button" id="select-all-pages-btn" class="secondary-btn px-3 py-1 text-sm font-medium rounded-md bg-white dark:bg-slate-600 border border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">Select All</button>
+                             <button type="button" id="deselect-all-pages-btn" class="secondary-btn px-3 py-1 text-sm font-medium rounded-md bg-white dark:bg-slate-600 border border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">Deselect All</button>
                         </div>
                     </div>
                     <div id="pdf-page-viewer" class="scroll-container max-h-[30rem] overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-4 p-2 bg-slate-100 dark:bg-slate-800 rounded-md">
@@ -212,7 +326,7 @@
                                  <button type="button" id="export-btn" class="p-2 rounded-full bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled title="Export as subtitle file" aria-label="Export as subtitle file">
                                    <svg id="export-icon-default" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
                                 </button>
-                                <button type="button" id="translate-all-subs-btn" class="px-4 py-2 text-sm font-bold rounded-md bg-sky-500 hover:bg-sky-600 text-white transition-colors">Translate All</button>
+                                <button type="button" id="translate-all-subs-btn" class="secondary-btn px-4 py-2 text-sm font-bold rounded-md bg-sky-500 hover:bg-sky-600 text-white transition-colors">Translate All</button>
                             </div>
                         </div>
                     </div>
@@ -223,7 +337,7 @@
                                 <label for="break-lines-max-chars" class="text-sm font-medium whitespace-nowrap">Max chars / line:</label>
                                 <input type="number" id="break-lines-max-chars" value="42" min="10" step="1" class="w-20 p-2 text-center bg-slate-100 dark:bg-slate-700 bg-input rounded-lg border-slate-300 dark:border-transparent text-sm focus:ring-2 focus:ring-sky-500">
                             </div>
-                            <button type="button" id="break-lines-apply-btn" class="px-4 py-2 text-sm font-bold rounded-md bg-sky-500 hover:bg-sky-600 text-white transition-colors">Apply Changes</button>
+                            <button type="button" id="break-lines-apply-btn" class="secondary-btn px-4 py-2 text-sm font-bold rounded-md bg-sky-500 hover:bg-sky-600 text-white transition-colors">Apply Changes</button>
                         </div>
                     </div>
                     <div id="find-replace-panel" class="hidden p-3 my-2 bg-slate-300/50 dark:bg-slate-800/50 rounded-md space-y-3">
@@ -235,7 +349,7 @@
                             <div class="flex items-center gap-4">
                                 <label class="flex items-center text-sm"><input type="checkbox" id="find-case-sensitive" class="h-4 w-4 rounded border-slate-400 dark:border-slate-600 bg-slate-200 dark:bg-slate-700 text-sky-600 focus:ring-sky-500 mr-1.5">Case Sensitive</label>
                             </div>
-                            <button type="button" id="replace-all-btn" class="px-4 py-2 text-sm font-bold rounded-md bg-sky-500 hover:bg-sky-600 text-white transition-colors">Replace All</button>
+                            <button type="button" id="replace-all-btn" class="secondary-btn px-4 py-2 text-sm font-bold rounded-md bg-sky-500 hover:bg-sky-600 text-white transition-colors">Replace All</button>
                         </div>
                     </div>
                     
@@ -270,7 +384,7 @@
 
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                    <button type="button" id="settings-toggle-btn" class="w-full text-center py-3 px-4 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 transition-colors font-medium">Advanced Settings</button>
+                    <button type="button" id="settings-toggle-btn" class="secondary-btn w-full text-center py-3 px-4 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 transition-colors font-medium">Advanced Settings</button>
                     <button type="submit" id="translate-btn" class="w-full text-center py-3 px-4 rounded-lg bg-sky-500 hover:bg-sky-600 text-white font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center">
                         <span id="translate-btn-text">Translate</span>
                         <svg id="translate-btn-spinner" class="spinner w-5 h-5 ml-2 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
@@ -333,7 +447,7 @@
                         </div>
                         <div id="custom-prompt-container" class="hidden space-y-2">
                             <textarea id="custom-prompt-input" placeholder="Enter your custom prompt. Use {text}, {source_lang}, and {target_lang} as placeholders." class="w-full h-28 p-2.5 bg-slate-100 dark:bg-slate-700 bg-input border-slate-300 dark:border-transparent text-sm rounded-lg focus:ring-2 focus:ring-sky-500"></textarea>
-                            <button type="button" id="optimize-prompt-btn" class="w-full flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md bg-white dark:bg-slate-600 border border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <button type="button" id="optimize-prompt-btn" class="secondary-btn w-full flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md bg-white dark:bg-slate-600 border border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">
                                 <i class="fas fa-magic mr-2"></i>
                                 <span id="optimize-prompt-btn-text">Optimize</span>
                                 <svg id="optimize-prompt-spinner" class="spinner w-4 h-4 ml-2 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
@@ -347,6 +461,10 @@
                     <div class="flex items-center pt-2 border-t border-slate-300 dark:border-slate-700">
                         <input id="save-settings-checkbox" type="checkbox" class="h-4 w-4 rounded border-slate-400 dark:border-slate-600 bg-slate-200 dark:bg-slate-700 text-sky-600 focus:ring-sky-500">
                         <label for="save-settings-checkbox" class="ml-2 block text-sm text-slate-600 dark:text-slate-400">Save all settings in this browser</label>
+                    </div>
+                    <!-- ===== CLEAR CACHE BUTTON (ADDED) ===== -->
+                    <div class="pt-2 border-t border-slate-300 dark:border-slate-700">
+                         <button type="button" id="clear-cache-btn" class="secondary-btn w-full text-center py-2.5 px-4 rounded-lg text-sm font-medium">Clear Cache & Reload</button>
                     </div>
                 </div>
 
@@ -367,22 +485,22 @@
                     <div id="enhancements-toolbar" class="mt-4 p-4 bg-slate-200/50 dark:bg-slate-900/50 rounded-lg hidden opacity-0 -translate-y-2 space-y-4">
                         <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
                             <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Refine:</span>
-                            <button type="button" data-action="shorten" class="enhancement-btn px-3 py-1.5 text-sm font-medium rounded-md bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-slate-600">Make Shorter</button>
-                            <button type="button" data-action="expand" class="enhancement-btn px-3 py-1.5 text-sm font-medium rounded-md bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-slate-600">Expand</button>
-                            <button type="button" data-action="summarize" class="enhancement-btn px-3 py-1.5 text-sm font-medium rounded-md bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-slate-600">Summarize</button>
+                            <button type="button" data-action="shorten" class="enhancement-btn secondary-btn px-3 py-1.5 text-sm font-medium rounded-md bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-slate-600">Make Shorter</button>
+                            <button type="button" data-action="expand" class="enhancement-btn secondary-btn px-3 py-1.5 text-sm font-medium rounded-md bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-slate-600">Expand</button>
+                            <button type="button" data-action="summarize" class="enhancement-btn secondary-btn px-3 py-1.5 text-sm font-medium rounded-md bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-slate-600">Summarize</button>
                         </div>
                         <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 border-t border-slate-300 dark:border-slate-700 pt-4">
                             <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Change Style:</span>
-                            <button type="button" data-action="formal" class="enhancement-btn px-3 py-1.5 text-sm font-medium rounded-md bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-slate-600">
+                            <button type="button" data-action="formal" class="enhancement-btn secondary-btn px-3 py-1.5 text-sm font-medium rounded-md bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-slate-600">
                                 <i class="fas fa-user-tie mr-1.5"></i>Formal
                             </button>
-                            <button type="button" data-action="informal" class="enhancement-btn px-3 py-1.5 text-sm font-medium rounded-md bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-slate-600">
+                            <button type="button" data-action="informal" class="enhancement-btn secondary-btn px-3 py-1.5 text-sm font-medium rounded-md bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-slate-600">
                                 <i class="fas fa-comments mr-1.5"></i>Informal
                             </button>
-                            <button type="button" data-action="poetic" class="enhancement-btn px-3 py-1.5 text-sm font-medium rounded-md bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-slate-600">
+                            <button type="button" data-action="poetic" class="enhancement-btn secondary-btn px-3 py-1.5 text-sm font-medium rounded-md bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-slate-600">
                                 <i class="fas fa-feather-alt mr-1.5"></i>Poetic
                             </button>
-                            <button type="button" data-action="simplify" class="enhancement-btn px-3 py-1.5 text-sm font-medium rounded-md bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-slate-600">
+                            <button type="button" data-action="simplify" class="enhancement-btn secondary-btn px-3 py-1.5 text-sm font-medium rounded-md bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-slate-600">
                                 <i class="fas fa-child mr-1.5"></i>Simplify
                             </button>
                         </div>
@@ -407,6 +525,10 @@
 
     <script>
         (() => {
+            // [ YOUR ENTIRE JAVASCRIPT CODE - UNCHANGED ]
+            // ... (The huge script block from your original file goes here)
+            // It is copied fully below.
+
             // --- START: CONFIGURATION ---
             const DEFAULT_WEB_MODEL = "gemini-2.5-flash";
             const DEFAULT_PROXY_URL = "https://sbt.fxsinahamidi.workers.dev";
@@ -517,6 +639,7 @@
                 replaceAllBtn: document.getElementById('replace-all-btn'),
                 breakLinesMaxChars: document.getElementById('break-lines-max-chars'),
                 breakLinesApplyBtn: document.getElementById('break-lines-apply-btn'),
+                clearCacheBtn: document.getElementById('clear-cache-btn'), // (ADDED)
             };
             
             // --- START: State Management ---
@@ -1401,7 +1524,60 @@ ${JSON.stringify(itemsToTranslate)}`.trim();
                 log(`Split complete. Total lines are now ${newLines.length}. Re-rendering table.`);
                 processAndDisplaySubtitles(null, null, newTranslations);
             }
+            
+            // --- START: Cache Clear Function (ADDED) ---
+            function handleClearCache() {
+                if ('caches' in window) {
+                    caches.delete('fluentify-cache-v1').then(function(wasDeleted) {
+                        if (wasDeleted) {
+                            alert('Cache cleared successfully! Please reload the page.');
+                            window.location.reload();
+                        } else {
+                            alert('Cache not found or could not be cleared.');
+                        }
+                    });
+                } else {
+                    alert('Cache API not supported in this browser.');
+                }
+            }
 
+            // --- START: Dynamic Background Script (MODIFIED) ---
+            function createFirefall() {
+                if (!document.documentElement.classList.contains('dark')) {
+                    // Clear existing particles if switching to light mode
+                    const existingParticles = document.querySelectorAll('.particle');
+                    existingParticles.forEach(p => p.remove());
+                    return;
+                }
+                
+                const particleCount = 20; // Fewer particles for a more subtle effect
+                const body = document.body;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    
+                    const size = Math.random() * 8 + 4; // size between 4px and 12px
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    
+                    particle.style.left = `${Math.random() * 100}vw`;
+                    
+                    const duration = Math.random() * 8 + 6; // duration between 6s and 14s
+                    particle.style.animationDuration = `${duration}s`;
+                    
+                    const delay = Math.random() * 10;
+                    particle.style.animationDelay = `${delay}s`;
+
+                    particle.style.setProperty('--sway', Math.random() * 2 - 1);
+                    
+                    body.appendChild(particle);
+
+                    particle.addEventListener('animationend', () => {
+                        particle.remove();
+                    });
+                }
+            }
             
             // --- START: Initialization ---
             function initialize() {
@@ -1422,7 +1598,11 @@ ${JSON.stringify(itemsToTranslate)}`.trim();
                 dom.copyBtn.addEventListener('click', copyToClipboard);
                 dom.exportBtn.addEventListener('click', exportOutput);
                 dom.exportTextBtn.addEventListener('click', exportOutput);
-                dom.themeToggleBtn.addEventListener('click', toggleTheme);
+                dom.themeToggleBtn.addEventListener('click', () => {
+                    toggleTheme();
+                    // Re-run particle creation logic on theme change
+                    setTimeout(createFirefall, 50); 
+                });
                 dom.fetchYoutubeSubsBtn.addEventListener('click', handleFetchYouTubeSubs);
                 dom.chooseFileBtn.addEventListener('click', () => dom.fileUpload.click());
                 dom.removeFileBtn.addEventListener('click', resetFileInput);
@@ -1446,6 +1626,7 @@ ${JSON.stringify(itemsToTranslate)}`.trim();
                 dom.cancelTranslationBtn.addEventListener('click', cancelTranslation);
                 dom.temperatureSlider.addEventListener('input', (e) => { dom.temperatureValue.textContent = e.target.value; });
                 dom.requestDelayInput.addEventListener('input', updatePageSelectionCounter);
+                dom.clearCacheBtn.addEventListener('click', handleClearCache); // (ADDED)
         
                 // Subtitle editor event delegation
                 dom.subtitleTableBody.addEventListener('click', async (e) => {
@@ -1456,7 +1637,7 @@ ${JSON.stringify(itemsToTranslate)}`.trim();
                         const originalText = (subtitleData.lines || subtitleData.events.lines)[index].text;
                         const targetCell = row.cells[3];
                         btn.disabled = true;
-                        btn.innerHTML = `<svg class="spinner w-3 h-3 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 R>0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>`;
+                        btn.innerHTML = `<svg class="spinner w-3 h-3 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>`;
                         try {
                             const apiKey = dom.apiKeyInput.value.trim();
                             if (!apiKey) throw new Error("API Key is required.");
@@ -1596,6 +1777,10 @@ ${JSON.stringify(itemsToTranslate)}`.trim();
                     const event = el.type === 'checkbox' || el.type === 'range' ? 'change' : 'input';
                     el.addEventListener(event, saveSettings);
                 });
+
+                // Initial particle creation and interval
+                createFirefall();
+                setInterval(createFirefall, 5000); 
         
                 log("Fluentify App Initialized.");
             }
